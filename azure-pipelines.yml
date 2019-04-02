@@ -6,21 +6,21 @@ variables:
   buildNumberFormat: $(rev:.r).$(Build.SourceVersionShort)
 
 steps:
-  - task: BuildCppServer@1
+  - script: |
+      sudo apt-get install libboost-all-dev
     displayName: Install dependencies
-    script: sudo apt-get install libboost-all-dev
+    
 
-  - task: BuildCppServer1@1
+  - script: |
+      g++ -std=c++11 -I/usr/include/boost/asio -I/usr/include/boost -o $(Build.ArtifactStagingDirectory)/$(buildName).$(buildNumberFormat).out main.cpp connection.cpp connection_manager.cpp mime_types.cpp reply.cpp request_handler.cpp request_parser.cpp server.cpp -lboost_system -lboost_thread -lpthread
     displayName: Compile the binaries
-    script: g++ -std=c++11 -I/usr/include/boost/asio -I/usr/include/boost -o $(Build.ArtifactStagingDirectory)/$(buildName).$(buildNumberFormat).out main.cpp connection.cpp connection_manager.cpp mime_types.cpp reply.cpp request_handler.cpp request_parser.cpp server.cpp -lboost_system -lboost_thread -lpthread
-
-  - task: BuildCppServer2@1
-    displayName: Generate readme.txt
-    script: |
+    
+  - script: |
       echo $(buildName).$(buildNumberFormat) > $(Build.ArtifactStagingDirectory)/readme.txt
+    displayName: Generate readme.txt
+    
 
   - task: PublishBuildArtifacts@1
     inputs:
       pathtoPublish: '$(Build.ArtifactStagingDirectory)'
       artifactName: drop
-
