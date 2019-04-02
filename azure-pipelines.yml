@@ -6,20 +6,21 @@ variables:
   buildNumberFormat: $(rev:.r).$(Build.SourceVersionShort)
 
 steps:
-  - tasks: BuildCPPServer@0
-    displayName: Install dependencies
-    script: sudo apt-get install libboost-all-dev
+- tasks: BuildCPPServer@0
+  displayName: Install dependencies
+  script: sudo apt-get install libboost-all-dev
 
-  - tasks: BuildCPPServer@0
-    displayName: Compile the binaries
-    script: g++ -std=c++11 -I/usr/include/boost/asio -I/usr/include/boost -o $(Build.ArtifactStagingDirectory)/$(buildName).$(buildNumberFormat).out main.cpp connection.cpp connection_manager.cpp mime_types.cpp reply.cpp request_handler.cpp request_parser.cpp server.cpp -lboost_system -lboost_thread -lpthread
+- tasks: BuildCPPServer1@0
+  displayName: Compile the binaries
+  script: g++ -std=c++11 -I/usr/include/boost/asio -I/usr/include/boost -o $(Build.ArtifactStagingDirectory)/$(buildName).$(buildNumberFormat).out main.cpp connection.cpp connection_manager.cpp mime_types.cpp reply.cpp request_handler.cpp request_parser.cpp server.cpp -lboost_system -lboost_thread -lpthread
 
-  - tasks: BuildCPPServer@0
-    displayName: Generate readme.txt
-    script: |
-      echo $(buildName).$(buildNumberFormat) > $(Build.ArtifactStagingDirectory)/readme.txt
+- tasks: BuildCPPServer2@0
+  displayName: Generate readme.txt
+  script: |
+    echo $(buildName).$(buildNumberFormat) > $(Build.ArtifactStagingDirectory)/readme.txt
 
-  - task: PublishBuildArtifacts@1
-    inputs:
-      pathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      artifactName: drop
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    artifactName: drop
+
