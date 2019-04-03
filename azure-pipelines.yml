@@ -3,7 +3,7 @@ pool:
 
 variables:
   buildName: "MyCppBuild"
-  buildNumberFormat: $(rev:.r).$(Build.SourceVersionShort)
+  buildNumberFormat: $(rev:.r).$(Build.SourceVersion)
 
 name: $(Build.DefinitionName)$(Rev:.r).$(Build.SourceVersion)
 steps:
