@@ -1,5 +1,7 @@
 ## RW1DevopsTestProject
 
+[![Build Status](https://dev.azure.com/akkumar027/MyFirstProject/_apis/build/status/MyFirstProject-CI?branchName=master)](https://dev.azure.com/akkumar027/MyFirstProject/_build/latest?definitionId=3&branchName=master)
+
 This is a test project for recrutation purpouse. 
 
 Based on Boost Asio http server example version 15.8
