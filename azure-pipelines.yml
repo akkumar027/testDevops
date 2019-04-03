@@ -3,6 +3,10 @@ pool:
 
 
 name: $(Build.DefinitionName)$(Rev:.r).$(Build.SourceVersion)
+
+variables:
+  finalArtifactName: $(Build.DefinitionName)$(Rev:.r).$(Build.SourceVersion)
+
 steps:
   - script: |
       sudo apt-get install libboost-all-dev
@@ -10,11 +14,11 @@ steps:
     
 
   - script: |
-      g++ -std=c++11 -I/usr/include/boost/asio -I/usr/include/boost -o $(Build.ArtifactStagingDirectory)/$(name).out main.cpp connection.cpp connection_manager.cpp mime_types.cpp reply.cpp request_handler.cpp request_parser.cpp server.cpp -lboost_system -lboost_thread -lpthread
+      g++ -std=c++11 -I/usr/include/boost/asio -I/usr/include/boost -o $(Build.ArtifactStagingDirectory)/$(finalArtifactName).out main.cpp connection.cpp connection_manager.cpp mime_types.cpp reply.cpp request_handler.cpp request_parser.cpp server.cpp -lboost_system -lboost_thread -lpthread
     displayName: Compile the binaries
     
   - script: |
-      echo $(name) > $(Build.ArtifactStagingDirectory)/readme.txt
+      echo $(finalArtifactName) > $(Build.ArtifactStagingDirectory)/readme.txt
     displayName: Generate readme.txt
     
 
