@@ -1,9 +1,6 @@
 pool:
   vmImage: 'Ubuntu 16.04'
 
-variables:
-  buildName: "MyCppBuild"
-  buildNumberFormat: $(rev:.r).$(Build.SourceVersion)
 
 name: $(Build.DefinitionName)$(Rev:.r).$(Build.SourceVersion)
 steps:
