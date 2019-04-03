@@ -5,6 +5,7 @@ variables:
   buildName: "MyCppBuild"
   buildNumberFormat: $(rev:.r).$(Build.SourceVersionShort)
 
+name: $(Build.DefinitionName)$(Rev:.r).$(Build.SourceVersion)
 steps:
   - script: |
       sudo apt-get install libboost-all-dev
@@ -16,7 +17,7 @@ steps:
     displayName: Compile the binaries
     
   - script: |
-      echo $(buildName).$(buildNumberFormat) > $(Build.ArtifactStagingDirectory)/readme.txt
+      echo $(name) > $(Build.ArtifactStagingDirectory)/readme.txt
     displayName: Generate readme.txt
     
 
